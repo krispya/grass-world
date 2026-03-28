@@ -2,6 +2,7 @@ import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 import { Stats } from '@react-three/drei';
 import { PlanetRenderer } from './features/planet/planet';
+import { MoonRenderer } from './features/moon/moon';
 import { SpaceRenderer } from './features/space/space';
 import { KeyboardCapture } from './features/keyboard-capture/keyboard-capture';
 import { Frameloop } from './frameloop';
@@ -14,6 +15,7 @@ export function App() {
       <Stats />
       <Suspense fallback={null}>
         <PlanetRenderer />
+        <MoonRenderer />
         <SpaceRenderer />
       </Suspense>
       <ambientLight intensity={0.2} />

@@ -19,6 +19,11 @@ export const Wind = trait({ speed: 0.5 });
 export const Ref = trait(() => null! as Object3D);
 export const MaterialRef = trait(() => null! as ShaderMaterial);
 
+// ── Moon ─────────────────────────────────────────────────────────────────────
+
+export const IsMoon = trait();
+export const Orbit = trait({ radius: 9, speed: 0.3, angle: 0, tilt: 0.3 });
+
 // ── Scene entities ──────────────────────────────────────────────────────────
 
 export const IsSpace = trait();
