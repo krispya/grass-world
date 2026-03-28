@@ -1,5 +1,6 @@
 uniform float uTime;
 uniform float uSway;
+uniform float uWindSpeed;
 varying vec2 vUv;
 varying float vHeight;
 varying vec4 vWorldPos;
@@ -12,10 +13,11 @@ void main() {
   vec3 base = vec3(pos.x, pos.y, 0.0);
   vec4 baseGP = instanceMatrix * vec4(base, 1.0);
 
-  float noise = snoise(baseGP.xyz * 0.1 + uTime * 0.5);
+  float t = uTime * uWindSpeed;
+  float noise = snoise(baseGP.xyz * 0.1 + t);
   noise = smoothstep(-1.0, 1.0, noise);
-  float swingX = sin(uTime * 2.0 + noise * 6.28318) * pow(pos.z, 2.0);
-  float swingY = cos(uTime * 2.0 + noise * 6.28318) * pow(pos.z, 2.0);
+  float swingX = sin(t * 4.0 + noise * 6.28318) * pow(pos.z, 2.0);
+  float swingY = cos(t * 4.0 + noise * 6.28318) * pow(pos.z, 2.0);
   pos.x += swingX * uSway;
   pos.y += swingY * uSway;
 

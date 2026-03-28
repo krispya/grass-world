@@ -1,19 +1,22 @@
-import { useEffect } from 'react'
-import { useActions } from 'koota/react'
-import { actions } from './core/actions'
+import { useEffect } from 'react';
+import { useActions } from 'koota/react';
+import { actions } from './core/actions';
+import { Wind } from './core/traits';
 
 export function Startup() {
-  const { spawnPlanetGroup, spawnSpaceShader } = useActions(actions)
+  const { spawnPlanet, spawnSpace } = useActions(actions);
 
   useEffect(() => {
-    const planet = spawnPlanetGroup()
-    const space = spawnSpaceShader()
+    const planet = spawnPlanet();
+    planet.set(Wind, { speed: 0.1 });
+
+    const space = spawnSpace();
 
     return () => {
-      planet.destroy()
-      space.destroy()
-    }
-  }, [spawnPlanetGroup, spawnSpaceShader])
+      planet.destroy();
+      space.destroy();
+    };
+  }, [spawnPlanet, spawnSpace]);
 
-  return null
+  return null;
 }

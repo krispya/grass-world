@@ -1,12 +1,12 @@
 import { createActions } from 'koota';
-import { AngularVelocity, Grass, IsPlanet, IsSpace, RotationConfig } from './traits';
+import { AngularVelocity, Grass, IsPlanet, IsSpace, RotationConfig, Wind } from './traits';
 
 export const actions = createActions((world) => ({
-  spawnPlanetGroup: () => {
-    return world.spawn(IsPlanet, AngularVelocity, RotationConfig, Grass);
+  spawnPlanet: () => {
+    return world.spawn(IsPlanet, AngularVelocity, RotationConfig, Grass, Wind);
   },
 
-  spawnSpaceShader: () => {
+  spawnSpace: () => {
     return world.spawn(IsSpace);
   },
 }));

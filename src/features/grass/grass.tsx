@@ -16,7 +16,7 @@ interface GrassViewProps {
 }
 
 export function GrassView({ entity, grass, surfaceRef }: GrassViewProps) {
-  const { bW, bH, joints, count, sway } = grass
+  const { bW, bH, joints, count } = grass
   const instances = useRef<InstancedMesh>(null!)
   const materialRef = useRef<ShaderMaterial>(null!)
   const entityRef = useRef(entity)
@@ -53,7 +53,8 @@ export function GrassView({ entity, grass, surfaceRef }: GrassViewProps) {
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
-      uSway: { value: sway },
+      uSway: { value: 1.0 },
+      uWindSpeed: { value: 0.5 },
       uAlphaMap: { value: alphaMap },
       uColorA: { value: new THREE.Color('#d62a58') },
       uColorB: { value: new THREE.Color('#1c1a3d') },
@@ -62,7 +63,7 @@ export function GrassView({ entity, grass, surfaceRef }: GrassViewProps) {
       uFogNear: { value: 9.2 },
       uFogFar: { value: 25 },
     }),
-    [sway, alphaMap],
+    [alphaMap],
   )
 
   return (
