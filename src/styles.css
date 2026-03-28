@@ -1,0 +1,15 @@
+html,
+body {
+  margin: 0;
+}
+
+#root {
+  width: 100dvw;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: #2b263d;
+}
+
+#root canvas {
+  touch-action: none;
+}
