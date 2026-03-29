@@ -7,6 +7,7 @@ import { SpaceRenderer } from './features/space/space';
 import { KeyboardCapture } from './features/keyboard-capture/keyboard-capture';
 import { ResponsiveCamera } from './features/responsive-camera/responsive-camera';
 import { Poster } from './features/poster/poster';
+import { TouchControls } from './features/touch-controls/touch-controls';
 import { Frameloop } from './frameloop';
 import { Startup } from './startup';
 import './styles.css';
@@ -15,6 +16,7 @@ export function App() {
   return (
     <>
       <Poster />
+      <TouchControls />
       <Canvas shadows camera={{ position: [0, 12, 0] }}>
         {/* <Stats /> */}
         <Suspense fallback={null}>
