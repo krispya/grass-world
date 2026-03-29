@@ -7,6 +7,7 @@ uniform float uRotSwayAtten;
 varying vec2 vUv;
 varying float vHeight;
 varying vec4 vWorldPos;
+varying vec3 vWorldNormal;
 
 #include "../../../shaders/noise.glsl"
 
@@ -45,6 +46,7 @@ void main() {
   pos.y += dy;
 
   vHeight = pos.z;
+  vWorldNormal = normalize(worldBase);
 
   // Conserve blade length: lateral displacement pulls the tip toward the surface
   pos.z = sqrt(max(pos.z * pos.z - dx * dx - dy * dy, 0.0));
