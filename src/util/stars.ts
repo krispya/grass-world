@@ -13,8 +13,18 @@ function genStar(r: number): [number, number, number] {
 }
 
 export function buildStarBuffers(stars: TraitRecord<typeof Stars>) {
-  const { count, radius, depth, factor, saturation, brightnessMin, brightnessMax, twinkleChance, tintMin, tintMax } =
-    stars;
+  const {
+    count,
+    radius,
+    depth,
+    factor,
+    saturation,
+    brightnessMin,
+    brightnessMax,
+    twinkleChance,
+    tintMin,
+    tintMax,
+  } = stars;
   const positions: number[] = [];
   const colors: number[] = [];
   const sizes = new Float32Array(count);

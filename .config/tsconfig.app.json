@@ -4,11 +4,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -18,8 +14,5 @@
     "erasableSyntaxOnly": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "../src",
-    "../tests"
-  ]
+  "include": ["../src", "../tests"]
 }

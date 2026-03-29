@@ -15,8 +15,18 @@ function StarsView({ entity }: { entity: Entity }) {
   const stars = useTrait(entity, Stars);
   if (!stars) return null;
 
-  const { count, radius, depth, factor, saturation, brightnessMin, brightnessMax, twinkleChance, tintMin, tintMax } =
-    stars;
+  const {
+    count,
+    radius,
+    depth,
+    factor,
+    saturation,
+    brightnessMin,
+    brightnessMax,
+    twinkleChance,
+    tintMin,
+    tintMax,
+  } = stars;
 
   const buffers = useMemo(
     () =>
@@ -32,7 +42,18 @@ function StarsView({ entity }: { entity: Entity }) {
         tintMin,
         tintMax,
       } as TraitRecord<typeof Stars>),
-    [count, radius, depth, factor, saturation, brightnessMin, brightnessMax, twinkleChance, tintMin, tintMax]
+    [
+      count,
+      radius,
+      depth,
+      factor,
+      saturation,
+      brightnessMin,
+      brightnessMax,
+      twinkleChance,
+      tintMin,
+      tintMax,
+    ]
   );
 
   // Initial values only — the updateStars system drives these uniforms each frame.

@@ -1,11 +1,6 @@
 {
   "$schema": "../node_modules/oxlint/configuration_schema.json",
-  "plugins": [
-    "unicorn",
-    "typescript",
-    "oxc",
-    "react"
-  ],
+  "plugins": ["unicorn", "typescript", "oxc", "react"],
   "rules": {
     "no-unused-vars": [
       "warn",
@@ -23,7 +18,5 @@
       }
     ]
   },
-  "ignorePatterns": [
-    "dist"
-  ]
+  "ignorePatterns": ["dist"]
 }
