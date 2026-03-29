@@ -1,6 +1,6 @@
-import { useLayoutEffect, useRef } from 'react';
-import { useQueryFirst, useTrait } from 'koota/react';
 import { Sphere } from '@react-three/drei';
+import { useQueryFirst, useTrait } from 'koota/react';
+import { useRef } from 'react';
 import { Grass, IsPlanet, Ref } from '../../core/traits';
 import { GrassView } from '../grass/grass';
 
@@ -16,30 +16,17 @@ export function PlanetRenderer() {
 }
 
 function PlanetView({ entity }: { entity: Entity }) {
-  const entityRef = useRef(entity);
-  entityRef.current = entity;
-  const groupRef = useRef<Group>(null);
   const sphereRef = useRef<Mesh>(null);
   const grass = useTrait(entity, Grass);
 
-  useLayoutEffect(() => {
-    const currentEntity = entityRef.current;
-    const group = groupRef.current;
-    if (!group || !currentEntity.isAlive()) return;
-
-    if (!currentEntity.has(Ref) || currentEntity.get(Ref) !== group) {
-      currentEntity.add(Ref(group));
-    }
-
-    return () => {
-      if (currentEntity.isAlive() && currentEntity.has(Ref) && currentEntity.get(Ref) === group) {
-        currentEntity.remove(Ref);
-      }
-    };
-  }, []);
+  const handleInit = (group: Group | null) => {
+    if (!group || !entity.isAlive()) return;
+    entity.add(Ref(group));
+    return () => entity.remove(Ref);
+  };
 
   return (
-    <group ref={groupRef}>
+    <group ref={handleInit}>
       <Sphere ref={sphereRef} args={[RADIUS, 32, 32]} receiveShadow castShadow>
         <meshPhysicalMaterial
           color="#32194c"

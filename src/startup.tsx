@@ -11,7 +11,7 @@ export function Startup() {
     planet.set(Wind, { speed: 0.1 });
 
     const moon = spawnMoon();
-    const space = spawnSpace();
+    const space = spawnSpace({ colorSpeed: 0.3, alphaMin: 0.2, alphaMax: 0.8 });
 
     return () => {
       planet.destroy();

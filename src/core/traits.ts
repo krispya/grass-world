@@ -12,7 +12,7 @@ export const IsPlanet = trait();
 export const AngularVelocity = trait({ x: 0, y: 0 });
 export const RotationConfig = trait({ acceleration: 20, friction: 5, maxSpeed: 5 });
 export const Grass = trait({ bW: 0.065, bH: 0.5, joints: 5, count: 60000 });
-export const Wind = trait({ speed: 0.5 });
+export const Wind = trait({ speed: 0.5, rotStrength: 0.1, rotSwayAtten: 1.5 });
 
 // ── View refs ───────────────────────────────────────────────────────────────
 
@@ -24,6 +24,6 @@ export const MaterialRef = trait(() => null! as ShaderMaterial);
 export const IsMoon = trait();
 export const Orbit = trait({ radius: 9, speed: 0.3, angle: 0, tilt: 0.3 });
 
-// ── Scene entities ──────────────────────────────────────────────────────────
+// ── Space ────────────────────────────────────────────────────────────────────
 
-export const IsSpace = trait();
+export const Space = trait({ colorSpeed: 0.1, alphaMin: 0.0, alphaMax: 0.8 });

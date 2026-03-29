@@ -5,6 +5,7 @@ import { updateKeyboardRotation } from './core/systems/update-keyboard-rotation'
 import { integrateRotation } from './core/systems/integrate-rotation'
 import { updateGrassUniforms } from './core/systems/update-grass-uniforms'
 import { applyWind } from './core/systems/apply-wind'
+import { applyRotationWind } from './core/systems/apply-rotation-wind'
 import { updateSpaceUniforms } from './core/systems/update-space-uniforms'
 import { orbitMoon } from './core/systems/orbit-moon'
 
@@ -18,6 +19,7 @@ export function Frameloop() {
     orbitMoon(world)
     updateGrassUniforms(world)
     applyWind(world)
+    applyRotationWind(world)
     updateSpaceUniforms(world)
   })
 

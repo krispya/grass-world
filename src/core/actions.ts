@@ -1,5 +1,14 @@
-import { createActions } from 'koota';
-import { AngularVelocity, Grass, IsMoon, IsPlanet, IsSpace, Orbit, RotationConfig, Wind } from './traits';
+import { createActions, TraitRecord } from 'koota';
+import {
+  AngularVelocity,
+  Grass,
+  IsMoon,
+  IsPlanet,
+  Orbit,
+  RotationConfig,
+  Space,
+  Wind,
+} from './traits';
 
 export const actions = createActions((world) => ({
   spawnPlanet: () => {
@@ -10,7 +19,7 @@ export const actions = createActions((world) => ({
     return world.spawn(IsMoon, Orbit);
   },
 
-  spawnSpace: () => {
-    return world.spawn(IsSpace);
+  spawnSpace: (config?: Partial<TraitRecord<typeof Space>>) => {
+    return world.spawn(Space(config));
   },
 }));

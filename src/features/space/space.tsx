@@ -1,51 +1,27 @@
-import { useLayoutEffect, useMemo, useRef } from 'react'
-import { useQueryFirst } from 'koota/react'
-import { Environment, Stars } from '@react-three/drei'
-import * as THREE from 'three'
-import { IsSpace, MaterialRef } from '../../core/traits'
-import vertexShader from './vertex.glsl'
-import fragmentShader from './fragment.glsl'
-import type { Entity } from 'koota'
-import type { ShaderMaterial } from 'three'
-
-export function SpaceRenderer() {
-  const entity = useQueryFirst(IsSpace)
-  if (!entity) return null
-  return <SpaceView entity={entity} />
-}
+import { Environment, Stars } from '@react-three/drei';
+import type { Entity } from 'koota';
+import { useQueryFirst } from 'koota/react';
+import type { ShaderMaterial } from 'three';
+import * as THREE from 'three';
+import { MaterialRef, Space } from '../../core/traits';
+import fragmentShader from './shaders/fragment.glsl';
+import vertexShader from './shaders/vertex.glsl';
 
 function SpaceView({ entity }: { entity: Entity }) {
-  const entityRef = useRef(entity)
-  entityRef.current = entity
-  const materialRef = useRef<ShaderMaterial>(null!)
+  const uniforms = {
+    uColorBase: { value: new THREE.Color('#312a49') },
+    uColorA: { value: new THREE.Color('hotpink') },
+    uColorB: { value: new THREE.Color('#447') },
+    uAlpha: { value: 0.8 },
+    uOrigin: { value: new THREE.Vector3(100, 100, 100) },
+    uFar: { value: 300 },
+  };
 
-  useLayoutEffect(() => {
-    const currentEntity = entityRef.current
-    const material = materialRef.current
-    if (!material || !currentEntity.isAlive()) return
-
-    if (!currentEntity.has(MaterialRef) || currentEntity.get(MaterialRef) !== material) {
-      currentEntity.add(MaterialRef(material))
-    }
-
-    return () => {
-      if (currentEntity.isAlive() && currentEntity.has(MaterialRef) && currentEntity.get(MaterialRef) === material) {
-        currentEntity.remove(MaterialRef)
-      }
-    }
-  }, [])
-
-  const uniforms = useMemo(
-    () => ({
-      uColorBase: { value: new THREE.Color('#312a49') },
-      uColorA: { value: new THREE.Color('hotpink') },
-      uColorB: { value: new THREE.Color('#447') },
-      uAlpha: { value: 0.8 },
-      uOrigin: { value: new THREE.Vector3(100, 100, 100) },
-      uFar: { value: 300 },
-    }),
-    [],
-  )
+  const handleMaterialInit = (material: ShaderMaterial | null) => {
+    if (!material || !entity.isAlive()) return;
+    entity.add(MaterialRef(material));
+    return () => entity.remove(MaterialRef);
+  };
 
   return (
     <>
@@ -53,7 +29,7 @@ function SpaceView({ entity }: { entity: Entity }) {
         <mesh scale={100}>
           <sphereGeometry args={[1, 64, 64]} />
           <shaderMaterial
-            ref={materialRef}
+            ref={handleMaterialInit}
             side={THREE.BackSide}
             uniforms={uniforms}
             vertexShader={vertexShader}
@@ -63,5 +39,10 @@ function SpaceView({ entity }: { entity: Entity }) {
       </Environment>
       <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
     </>
-  )
+  );
+}
+
+export function SpaceRenderer() {
+  const entity = useQueryFirst(Space);
+  return entity ? <SpaceView entity={entity} /> : null;
 }
