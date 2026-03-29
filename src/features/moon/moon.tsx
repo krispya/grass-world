@@ -45,7 +45,7 @@ function MoonView({ entity }: { entity: Entity }) {
     <group ref={handleInit} onPointerDown={handlePointerDown}>
       <Center>
         <Text3D
-          font="/fonts/helvetiker_bold.typeface.json"
+          font="fonts/helvetiker_bold.typeface.json"
           size={0.9}
           height={0.5}
           bevelEnabled

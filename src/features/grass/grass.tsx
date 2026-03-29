@@ -30,7 +30,7 @@ function createBladeGeometry(bW: number, bH: number, joints: number) {
 export function GrassView({ entity, grass, surfaceRef }: GrassViewProps) {
   const { bW, bH, joints, count } = grass;
   const instances = useRef<InstancedMesh>(null!);
-  const alphaMap = useTexture('/assets/blade_a.jpg');
+  const alphaMap = useTexture('assets/blade_a.jpg');
 
   const handleInit = (material: ShaderMaterial | null) => {
     if (!material || !entity.isAlive()) return;
