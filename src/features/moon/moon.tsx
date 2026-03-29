@@ -54,19 +54,13 @@ function MoonView({ entity }: { entity: Entity }) {
           curveSegments={8}
         >
           CCNYC
-          <meshPhysicalMaterial
+          <meshStandardMaterial
             color="#21c2d1"
             emissive="#c0b0d8"
             emissiveIntensity={0.2}
-            metalness={0.95}
-            roughness={0.08}
-            clearcoat={1}
-            clearcoatRoughness={0.1}
-            iridescence={1}
-            iridescenceIOR={1.8}
-            iridescenceThicknessRange={[200, 600]}
+            metalness={0.92}
+            roughness={0.05}
             envMapIntensity={2.5}
-            reflectivity={1}
           />
         </Text3D>
       </Center>
