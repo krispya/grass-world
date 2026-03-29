@@ -1,10 +1,16 @@
 import { trait } from 'koota';
+import type { World as CrashcatWorld, RigidBody } from 'crashcat';
 import { type Object3D, type ShaderMaterial } from 'three';
 
 // ── Singletons (passed to createWorld) ──────────────────────────────────────
 
 export const Time = trait({ delta: 0, elapsed: 0 });
 export const Keyboard = trait(() => ({ keys: new Set<string>() }));
+
+// ── Physics ─────────────────────────────────────────────────────────────────
+
+export const Physics = trait(() => null! as CrashcatWorld);
+export const PhysicsBody = trait(() => null! as RigidBody);
 
 // ── Planet (the rotating planet container) ──────────────────────────────────
 
@@ -31,7 +37,7 @@ export const MaterialRef = trait(() => null! as ShaderMaterial);
 // ── Moon ─────────────────────────────────────────────────────────────────────
 
 export const IsMoon = trait();
-export const Orbit = trait({ radius: 9, speed: 0.3, angle: 0, tilt: 0.3 });
+export const Orbit = trait({ radius: 9, speed: 0.3 });
 
 // ── Space ────────────────────────────────────────────────────────────────────
 

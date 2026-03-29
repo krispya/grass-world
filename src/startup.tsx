@@ -1,12 +1,17 @@
 import { useEffect } from 'react';
-import { useActions } from 'koota/react';
+import { useActions, useWorld } from 'koota/react';
 import { actions } from './core/actions';
-import { GrassRimLighting, Stars, Wind } from './core/traits';
+import { GrassRimLighting, Physics, Stars, Wind } from './core/traits';
+import { createPhysicsWorld } from './core/physics';
 
 export function Startup() {
+  const world = useWorld();
   const { spawnPlanet, spawnMoon, spawnSpace } = useActions(actions);
 
   useEffect(() => {
+    const physicsWorld = createPhysicsWorld();
+    world.add(Physics(physicsWorld));
+
     const planet = spawnPlanet();
     planet.set(Wind, { speed: 0.1 });
     planet.set(GrassRimLighting, {
@@ -40,8 +45,9 @@ export function Startup() {
       planet.destroy();
       moon.destroy();
       space.destroy();
+      world.remove(Physics);
     };
-  }, [spawnPlanet, spawnMoon, spawnSpace]);
+  }, [world, spawnPlanet, spawnMoon, spawnSpace]);
 
   return null;
 }

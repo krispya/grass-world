@@ -10,6 +10,8 @@ import { updateSpaceUniforms } from './core/systems/update-space-uniforms';
 import { updateStars } from './core/systems/update-stars';
 import { updateGrassRimLighting } from './core/systems/update-rim-lighting';
 import { orbitMoon } from './core/systems/orbit-moon';
+import { stepPhysics } from './core/systems/step-physics';
+import { syncPhysics } from './core/systems/sync-physics';
 
 export function Frameloop() {
   const world = useWorld();
@@ -19,6 +21,8 @@ export function Frameloop() {
     updateKeyboardRotation(world);
     integrateRotation(world);
     orbitMoon(world);
+    stepPhysics(world);
+    syncPhysics(world);
     updateGrassUniforms(world);
     applyWind(world);
     applyRotationWind(world);
