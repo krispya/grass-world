@@ -37,7 +37,8 @@ export const actions = createActions((world) => ({
       shape: box.create({ halfExtents: [1.5, 0.4, 0.2] }),
       motionType: MotionType.DYNAMIC,
       objectLayer: objectLayers.moving,
-      position: [orbit.radius, 0, 0],
+      position: [0, 0, -orbit.radius],
+      quaternion: [-0.5, 0, 0, 0.866],
       gravityFactor: 0,
       linearDamping: 0,
       angularDamping: 0.3,
@@ -45,7 +46,7 @@ export const actions = createActions((world) => ({
       allowSleeping: false,
     });
 
-    rigidBody.setLinearVelocity(physics, body, [0, tangentialSpeed * 0.15, tangentialSpeed]);
+    rigidBody.setLinearVelocity(physics, body, [tangentialSpeed * 0.45, tangentialSpeed * 0.89, 0]);
     rigidBody.setAngularVelocity(physics, body, [0, 0.15, 0.05]);
 
     return world.spawn(IsMoon, Orbit, PhysicsBody(body));
