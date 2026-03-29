@@ -28,11 +28,12 @@ function PlanetView({ entity }: { entity: Entity }) {
   return (
     <group ref={handleInit}>
       <Sphere ref={sphereRef} args={[RADIUS, 32, 32]} receiveShadow castShadow>
-        <meshPhysicalMaterial
+        <meshStandardMaterial
           color="#32194c"
           emissive="#b3292e"
           emissiveIntensity={0.3}
-          roughness={0.8}
+          metalness={0.18}
+          roughness={0.68}
           envMapIntensity={2}
         />
       </Sphere>
