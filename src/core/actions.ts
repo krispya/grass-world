@@ -8,6 +8,7 @@ import {
   GrassRimLighting,
   RotationConfig,
   Space,
+  Stars,
   Wind,
 } from './traits';
 
@@ -21,6 +22,6 @@ export const actions = createActions((world) => ({
   },
 
   spawnSpace: (config?: Partial<TraitRecord<typeof Space>>) => {
-    return world.spawn(Space(config));
+    return world.spawn(Space(config), Stars);
   },
 }));

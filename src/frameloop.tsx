@@ -7,6 +7,7 @@ import { updateGrassUniforms } from './core/systems/update-grass-uniforms';
 import { applyWind } from './core/systems/apply-wind';
 import { applyRotationWind } from './core/systems/apply-rotation-wind';
 import { updateSpaceUniforms } from './core/systems/update-space-uniforms';
+import { updateStars } from './core/systems/update-stars';
 import { updateGrassRimLighting } from './core/systems/update-rim-lighting';
 import { orbitMoon } from './core/systems/orbit-moon';
 
@@ -23,6 +24,7 @@ export function Frameloop() {
     applyRotationWind(world);
     updateGrassRimLighting(world);
     updateSpaceUniforms(world);
+    updateStars(world);
   });
 
   return null;

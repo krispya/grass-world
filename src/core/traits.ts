@@ -36,3 +36,25 @@ export const Orbit = trait({ radius: 9, speed: 0.3, angle: 0, tilt: 0.3 });
 // ── Space ────────────────────────────────────────────────────────────────────
 
 export const Space = trait({ colorSpeed: 0.1, alphaMin: 0.0, alphaMax: 0.8 });
+
+// ── Stars ────────────────────────────────────────────────────────────────────
+
+export const Stars = trait({
+  count: 5000,
+  radius: 100,
+  depth: 50,
+  factor: 4,
+  saturation: 0,
+  fade: true,
+  speed: 0.8,
+  twinkleAmplitude: 0.6,
+  twinkleChance: 0.3,
+  colorShift: 0,
+  brightnessMin: 0.7,
+  brightnessMax: 1.0,
+  opacity: 1.0,
+  tint: '#ffffff',
+  tintMin: 0.0,
+  tintMax: 0.0,
+});
+export const StarsMaterialRef = trait(() => null! as ShaderMaterial);

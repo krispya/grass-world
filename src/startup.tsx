@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useActions } from 'koota/react';
 import { actions } from './core/actions';
-import { GrassRimLighting, Wind } from './core/traits';
+import { GrassRimLighting, Stars, Wind } from './core/traits';
 
 export function Startup() {
   const { spawnPlanet, spawnMoon, spawnSpace } = useActions(actions);
@@ -21,6 +21,20 @@ export function Startup() {
 
     const moon = spawnMoon();
     const space = spawnSpace({ colorSpeed: 0.3, alphaMin: 0.2, alphaMax: 0.8 });
+    space.set(Stars, {
+      count: 6000,
+      radius: 150,
+      saturation: 0.15,
+      speed: 0.4,
+      twinkleAmplitude: 0.8,
+      twinkleChance: 0.25,
+      colorShift: 0.4,
+      brightnessMin: 0.5,
+      brightnessMax: 0.8,
+      tint: '#d1215e',
+      tintMin: 0.65,
+      tintMax: 0.9,
+    });
 
     return () => {
       planet.destroy();
