@@ -19,8 +19,13 @@ export function App() {
         <SpaceRenderer />
       </Suspense>
       <ambientLight intensity={0.2} />
-      <spotLight intensity={1.5} position={[15, 15, -20]} castShadow shadow-mapSize={[1024, 1024]} />
-      <spotLight intensity={0.85} position={[-10, 15, 20]} />
+      <spotLight
+        intensity={1.5 * Math.PI}
+        position={[15, 15, -20]}
+        castShadow
+        shadow-mapSize={[1024, 1024]}
+      />
+      <spotLight intensity={0.85 * Math.PI} position={[-10, 15, 20]} />
 
       <Frameloop />
       <Startup />

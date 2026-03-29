@@ -7,7 +7,7 @@ import type { ThreeEvent } from '@react-three/fiber';
 import type { Entity } from 'koota';
 import type { Group } from 'three';
 
-const PUSH_STRENGTH = 3;
+const PUSH_SPEED = 3;
 
 export function MoonRenderer() {
   const entity = useQueryFirst(IsMoon);
@@ -32,11 +32,12 @@ function MoonView({ entity }: { entity: Entity }) {
 
     const dir = e.ray.direction;
     const point = e.point;
+    const impulse = PUSH_SPEED / body.motionProperties.invMass;
     rigidBody.addImpulseAtPosition(
       physics,
       body,
-      [dir.x * PUSH_STRENGTH, dir.y * PUSH_STRENGTH, dir.z * PUSH_STRENGTH],
-      [point.x, point.y, point.z]
+      [dir.x * impulse, dir.y * impulse, dir.z * impulse],
+      [point.x, point.y, point.z],
     );
   };
 
@@ -45,20 +46,27 @@ function MoonView({ entity }: { entity: Entity }) {
       <Center>
         <Text3D
           font="/fonts/helvetiker_bold.typeface.json"
-          size={0.7}
-          height={0.35}
+          size={0.9}
+          height={0.5}
           bevelEnabled
-          bevelSize={0.02}
-          bevelThickness={0.01}
-          curveSegments={6}
+          bevelSize={0.03}
+          bevelThickness={0.02}
+          curveSegments={8}
         >
           CCNYC
           <meshPhysicalMaterial
-            color="#8a8a9a"
-            emissive="#d1215e"
-            emissiveIntensity={0.15}
-            roughness={0.9}
-            metalness={0.1}
+            color="#21c2d1"
+            emissive="#c0b0d8"
+            emissiveIntensity={0.2}
+            metalness={0.95}
+            roughness={0.08}
+            clearcoat={1}
+            clearcoatRoughness={0.1}
+            iridescence={1}
+            iridescenceIOR={1.8}
+            iridescenceThicknessRange={[200, 600]}
+            envMapIntensity={2.5}
+            reflectivity={1}
           />
         </Text3D>
       </Center>
