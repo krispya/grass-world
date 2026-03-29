@@ -1,76 +1,44 @@
-.touch-controls {
+.joystick-base {
   position: fixed;
   bottom: 2.5rem;
-  right: 2rem;
-  display: grid;
-  grid-template-areas:
-    '.  n  .'
-    'w  c  e'
-    '.  s  .';
-  grid-template-columns: repeat(3, 3.75rem);
-  grid-template-rows: repeat(3, 3.75rem);
-  z-index: 10;
-  touch-action: none;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.touch-controls::before {
-  content: '';
-  grid-area: c;
+  right: 2.5rem;
+  width: 6rem;
+  height: 6rem;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
-  width: 2rem;
-  height: 2rem;
-  place-self: center;
-}
-
-.touch-btn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 1.1rem;
-  cursor: pointer;
+  z-index: 20;
   touch-action: none;
-  transition: background 0.1s, color 0.1s, transform 0.1s;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
 }
 
-.touch-btn[style*='grid-area: n'] {
-  border-radius: 1rem 1rem 0.25rem 0.25rem;
+.joystick-base[data-active='true'] {
+  cursor: grabbing;
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
-.touch-btn[style*='grid-area: s'] {
-  border-radius: 0.25rem 0.25rem 1rem 1rem;
+.joystick-nub {
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transition: transform 0.06s ease-out;
+  pointer-events: none;
 }
 
-.touch-btn[style*='grid-area: w'] {
-  border-radius: 1rem 0.25rem 0.25rem 1rem;
-}
-
-.touch-btn[style*='grid-area: e'] {
-  border-radius: 0.25rem 1rem 1rem 0.25rem;
-}
-
-.touch-btn:active {
-  background: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.9);
-  transform: scale(0.93);
+.joystick-base[data-active='true'] .joystick-nub {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 @media (max-width: 600px) {
-  .touch-controls {
+  .joystick-base {
     bottom: 1.5rem;
-    right: 1.25rem;
-    grid-template-columns: repeat(3, 3.25rem);
-    grid-template-rows: repeat(3, 3.25rem);
-  }
-
-  .touch-btn {
-    font-size: 0.95rem;
+    right: 1.5rem;
+    width: 5.5rem;
+    height: 5.5rem;
   }
 }

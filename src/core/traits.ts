@@ -6,6 +6,7 @@ import { type Object3D, type ShaderMaterial } from 'three';
 
 export const Time = trait({ delta: 0, elapsed: 0 });
 export const Keyboard = trait(() => ({ keys: new Set<string>() }));
+export const InputDirection = trait(() => ({ x: 0, y: 0 }));
 
 // ── Physics ─────────────────────────────────────────────────────────────────
 
