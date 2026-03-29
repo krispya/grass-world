@@ -2,7 +2,7 @@ import type { World } from 'koota';
 import { rigidBody } from 'crashcat';
 import { AngularVelocity, IsMoon, IsPlanet, Orbit, Physics, PhysicsBody } from '../traits';
 
-const DRAG_STRENGTH = 0.4;
+const SPIN_COUPLING = 0.4;
 
 export function orbitMoon(world: World) {
   const physics = world.get(Physics);
@@ -17,18 +17,26 @@ export function orbitMoon(world: World) {
 
     const mass = 1 / body.motionProperties.invMass;
 
-    // centripetal gravity: F = m * ω²r toward origin
-    const gravity = (mass * orbit.speed * orbit.speed * orbit.radius) / dist;
+    // Gravity that scales with distance: stronger the further the moon drifts.
+    // At the target radius the centripetal term (ω²r) keeps the orbit stable.
+    // Beyond it the force ramps up linearly so the moon always comes home.
+    const baseGravity = mass * orbit.speed * orbit.speed * orbit.radius;
+    const overshoot = Math.max(0, dist - orbit.radius);
+    const pullback = mass * overshoot * 2.0;
+    const gravity = (baseGravity + pullback) / dist;
     let fx = -px * gravity;
     let fy = -py * gravity;
     let fz = -pz * gravity;
 
-    // planet spin drag: F = m * drag * (ω × r)
+    // planet spin → tangential boost in the direction of rotation
     if (planetVel && (planetVel.x !== 0 || planetVel.y !== 0)) {
-      const drag = mass * DRAG_STRENGTH;
-      fx += (planetVel.y * pz) * drag;
-      fy += (-planetVel.x * pz) * drag;
-      fz += (planetVel.x * py - planetVel.y * px) * drag;
+      const boost = (mass * SPIN_COUPLING) / dist;
+      // y-spin pushes moon tangentially in xz plane
+      fx += -pz * planetVel.y * boost;
+      fz += px * planetVel.y * boost;
+      // x-spin pushes moon tangentially in yz plane
+      fy += pz * planetVel.x * boost;
+      fz += -py * planetVel.x * boost;
     }
 
     rigidBody.addForce(physics, body, [fx, fy, fz], true);

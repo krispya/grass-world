@@ -1,5 +1,5 @@
 import { createActions, type TraitRecord } from 'koota';
-import { rigidBody, box, MotionType } from 'crashcat';
+import { rigidBody, box, sphere, MotionType } from 'crashcat';
 import {
   AngularVelocity,
   Grass,
@@ -18,7 +18,14 @@ import { objectLayers } from './physics';
 
 export const actions = createActions((world) => ({
   spawnPlanet: () => {
-    return world.spawn(IsPlanet, AngularVelocity, RotationConfig, Grass, Wind, GrassRimLighting);
+    const physics = world.get(Physics)!;
+    const body = rigidBody.create(physics, {
+      shape: sphere.create({ radius: 5 }),
+      motionType: MotionType.STATIC,
+      objectLayer: objectLayers.fixed,
+      restitution: 0.8,
+    });
+    return world.spawn(IsPlanet, AngularVelocity, RotationConfig, Grass, Wind, GrassRimLighting, PhysicsBody(body));
   },
 
   spawnMoon: () => {
@@ -34,6 +41,7 @@ export const actions = createActions((world) => ({
       gravityFactor: 0,
       linearDamping: 0,
       angularDamping: 0.3,
+      restitution: 0.8,
       allowSleeping: false,
     });
 

@@ -1,8 +1,8 @@
-import type { World } from 'koota';
-import { PhysicsBody, Ref } from '../traits';
+import { Not, type World } from 'koota';
+import { IsPlanet, PhysicsBody, Ref } from '../traits';
 
 export function syncPhysics(world: World) {
-  world.query(PhysicsBody, Ref).updateEach(([body, ref]) => {
+  world.query(PhysicsBody, Ref, Not(IsPlanet)).updateEach(([body, ref]) => {
     const [px, py, pz] = body.position;
     ref.position.set(px, py, pz);
 
