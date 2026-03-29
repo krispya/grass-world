@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
-import { Stats } from '@react-three/drei';
+// import { Stats } from '@react-three/drei';
 import { PlanetRenderer } from './features/planet/planet';
 import { MoonRenderer } from './features/moon/moon';
 import { SpaceRenderer } from './features/space/space';
@@ -12,7 +12,7 @@ import './styles.css';
 export function App() {
   return (
     <Canvas shadows camera={{ position: [0, 12, 0] }}>
-      <Stats />
+      {/* <Stats /> */}
       <Suspense fallback={null}>
         <PlanetRenderer />
         <MoonRenderer />
