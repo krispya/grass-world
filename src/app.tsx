@@ -5,13 +5,17 @@ import { PlanetRenderer } from './features/planet/planet';
 import { MoonRenderer } from './features/moon/moon';
 import { SpaceRenderer } from './features/space/space';
 import { KeyboardCapture } from './features/keyboard-capture/keyboard-capture';
+import { ResponsiveCamera } from './features/responsive-camera/responsive-camera';
+import { Poster } from './features/poster/poster';
 import { Frameloop } from './frameloop';
 import { Startup } from './startup';
 import './styles.css';
 
 export function App() {
   return (
-    <Canvas shadows camera={{ position: [0, 12, 0] }}>
+    <>
+      <Poster />
+      <Canvas shadows camera={{ position: [0, 12, 0] }}>
       {/* <Stats /> */}
       <Suspense fallback={null}>
         <PlanetRenderer />
@@ -27,9 +31,11 @@ export function App() {
       />
       <spotLight intensity={0.85 * Math.PI} position={[-10, 15, 20]} />
 
+      <ResponsiveCamera />
       <Frameloop />
       <Startup />
       <KeyboardCapture />
     </Canvas>
+    </>
   );
 }
