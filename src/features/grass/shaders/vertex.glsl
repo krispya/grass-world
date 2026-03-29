@@ -8,6 +8,7 @@ varying vec2 vUv;
 varying float vHeight;
 varying vec4 vWorldPos;
 varying vec3 vWorldNormal;
+varying vec3 vWorldPosition;
 
 #include "../../../shaders/noise.glsl"
 
@@ -50,6 +51,7 @@ void main() {
 
   // Conserve blade length: lateral displacement pulls the tip toward the surface
   pos.z = sqrt(max(pos.z * pos.z - dx * dx - dy * dy, 0.0));
+  vWorldPosition = (modelMatrix * instanceMatrix * vec4(pos, 1.0)).xyz;
   vWorldPos = modelViewMatrix * instanceMatrix * vec4(pos, 1.0);
   gl_Position = projectionMatrix * vWorldPos;
 }

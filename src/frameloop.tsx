@@ -1,27 +1,29 @@
-import { useWorld } from 'koota/react'
-import { useFrame } from '@react-three/fiber'
-import { updateTime } from './core/systems/update-time'
-import { updateKeyboardRotation } from './core/systems/update-keyboard-rotation'
-import { integrateRotation } from './core/systems/integrate-rotation'
-import { updateGrassUniforms } from './core/systems/update-grass-uniforms'
-import { applyWind } from './core/systems/apply-wind'
-import { applyRotationWind } from './core/systems/apply-rotation-wind'
-import { updateSpaceUniforms } from './core/systems/update-space-uniforms'
-import { orbitMoon } from './core/systems/orbit-moon'
+import { useWorld } from 'koota/react';
+import { useFrame } from '@react-three/fiber';
+import { updateTime } from './core/systems/update-time';
+import { updateKeyboardRotation } from './core/systems/update-keyboard-rotation';
+import { integrateRotation } from './core/systems/integrate-rotation';
+import { updateGrassUniforms } from './core/systems/update-grass-uniforms';
+import { applyWind } from './core/systems/apply-wind';
+import { applyRotationWind } from './core/systems/apply-rotation-wind';
+import { updateSpaceUniforms } from './core/systems/update-space-uniforms';
+import { updateGrassRimLighting } from './core/systems/update-rim-lighting';
+import { orbitMoon } from './core/systems/orbit-moon';
 
 export function Frameloop() {
-  const world = useWorld()
+  const world = useWorld();
 
   useFrame((state, delta) => {
-    updateTime(world, state, delta)
-    updateKeyboardRotation(world)
-    integrateRotation(world)
-    orbitMoon(world)
-    updateGrassUniforms(world)
-    applyWind(world)
-    applyRotationWind(world)
-    updateSpaceUniforms(world)
-  })
+    updateTime(world, state, delta);
+    updateKeyboardRotation(world);
+    integrateRotation(world);
+    orbitMoon(world);
+    updateGrassUniforms(world);
+    applyWind(world);
+    applyRotationWind(world);
+    updateGrassRimLighting(world);
+    updateSpaceUniforms(world);
+  });
 
-  return null
+  return null;
 }

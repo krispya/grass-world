@@ -58,6 +58,10 @@ export function GrassView({ entity, grass, surfaceRef }: GrassViewProps) {
     uFogFar: { value: 25 },
     uEnvMap: { value: null },
     uEnvMapIntensity: { value: 0.5 },
+    uRimColor: { value: new THREE.Color('#f06926') },
+    uRimIntensity: { value: 0 },
+    uRimPower: { value: 5 },
+    uRimDirection: { value: new THREE.Vector3(-1, 1, -0.5) },
   };
 
   const scene = useThree((state) => state.scene);

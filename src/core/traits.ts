@@ -12,6 +12,15 @@ export const IsPlanet = trait();
 export const AngularVelocity = trait({ x: 0, y: 0 });
 export const RotationConfig = trait({ acceleration: 20, friction: 5, maxSpeed: 5 });
 export const Grass = trait({ bW: 0.065, bH: 0.5, joints: 5, count: 60000 });
+export const GrassRimLighting = trait({
+  pulseSpeed: 0.3,
+  pulseMin: 0.2,
+  pulseMax: 0.6,
+  powerPulseSpeed: 0.15,
+  powerMin: 3.0,
+  powerMax: 6.0,
+  orbitSpeed: 0.2,
+});
 export const Wind = trait({ speed: 0.5, rotStrength: 0.1, rotSwayAtten: 1.5 });
 
 // ── View refs ───────────────────────────────────────────────────────────────

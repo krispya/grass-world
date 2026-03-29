@@ -5,6 +5,7 @@ import {
   IsMoon,
   IsPlanet,
   Orbit,
+  GrassRimLighting,
   RotationConfig,
   Space,
   Wind,
@@ -12,7 +13,7 @@ import {
 
 export const actions = createActions((world) => ({
   spawnPlanet: () => {
-    return world.spawn(IsPlanet, AngularVelocity, RotationConfig, Grass, Wind);
+    return world.spawn(IsPlanet, AngularVelocity, RotationConfig, Grass, Wind, GrassRimLighting);
   },
 
   spawnMoon: () => {

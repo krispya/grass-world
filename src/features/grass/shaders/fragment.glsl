@@ -7,11 +7,16 @@ uniform float uFogNear;
 uniform float uFogFar;
 uniform samplerCube uEnvMap;
 uniform float uEnvMapIntensity;
+uniform vec3 uRimColor;
+uniform float uRimIntensity;
+uniform float uRimPower;
+uniform vec3 uRimDirection;
 
 varying vec2 vUv;
 varying float vHeight;
 varying vec4 vWorldPos;
 varying vec3 vWorldNormal;
+varying vec3 vWorldPosition;
 
 void main() {
   float alpha = texture2D(uAlphaMap, vUv).r;
@@ -24,6 +29,14 @@ void main() {
   vec3 envColor = textureCube(uEnvMap, vWorldNormal).rgb;
   float envFade = smoothstep(0.4, 0.0, vHeight);
   color = mix(color, envColor, uEnvMapIntensity * envFade);
+
+  // Rim lighting: corona on silhouette edges, biased toward upper-left
+  vec3 viewDir = normalize(cameraPosition - vWorldPosition);
+  float rim = 1.0 - max(dot(viewDir, vWorldNormal), 0.0);
+  rim = pow(rim, uRimPower);
+  float rimTip = smoothstep(0.0, 0.3, vHeight);
+  float rimBias = max(dot(vWorldNormal, normalize(uRimDirection)), 0.0);
+  color += uRimColor * rim * uRimIntensity * rimTip * rimBias;
 
   float dist = length(vWorldPos.xyz);
   float fogNormal = clamp((dist - uFogNear) / (uFogFar - uFogNear), 0.0, 1.0);
