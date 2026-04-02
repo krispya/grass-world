@@ -1,4 +1,4 @@
-import { Entity, TraitRecord } from 'koota';
+import { Entity } from 'koota';
 import { useTrait } from 'koota/react';
 import * as THREE from 'three';
 import { ShaderMaterial } from 'three';
