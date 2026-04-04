@@ -1,4 +1,3 @@
-uniform sampler2D uAlphaMap;
 uniform float uEmissiveIntensity;
 uniform vec3 uColorA;
 uniform vec3 uColorB;
@@ -19,9 +18,6 @@ varying vec3 vWorldNormal;
 varying vec3 vWorldPosition;
 
 void main() {
-  float alpha = smoothstep(0.45, 0.75, texture2D(uAlphaMap, vUv).r);
-  if (alpha < 0.01) discard;
-
   float depthFactor = smoothstep(0.2, 1.0, 1.0 - vHeight);
   vec3 baseColor = mix(uColorA, uColorB, depthFactor);
   vec3 color = baseColor + uEmissive * uEmissiveIntensity;
@@ -45,5 +41,5 @@ void main() {
   float fogScreen = clamp((dist - uFogNear) / (uFogFar - uFogNear), 0.0, 0.01);
   color = color + vec3(1.0) * fogScreen;
 
-  gl_FragColor = vec4(color, alpha);
+  gl_FragColor = vec4(color, 1.0);
 }

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Sampler, useTexture } from '@react-three/drei';
+import { Sampler } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { Grass, MaterialRef } from '../../core/traits';
@@ -30,7 +30,6 @@ function createBladeGeometry(bW: number, bH: number, joints: number) {
 export function GrassView({ entity, grass, surfaceRef }: GrassViewProps) {
   const { bW, bH, joints, count } = grass;
   const instances = useRef<InstancedMesh>(null!);
-  const alphaMap = useTexture('/assets/blade_a.jpg');
 
   const handleInit = (material: ShaderMaterial | null) => {
     if (!material || !entity.isAlive()) return;
@@ -49,7 +48,6 @@ export function GrassView({ entity, grass, surfaceRef }: GrassViewProps) {
     uAngularVelocity: { value: new THREE.Vector3() },
     uRotWindStrength: { value: 0.2 },
     uRotSwayAtten: { value: 1.5 },
-    uAlphaMap: { value: alphaMap },
     uColorA: { value: new THREE.Color('#d62a58') },
     uColorB: { value: new THREE.Color('#1c1a3d') },
     uEmissive: { value: new THREE.Color('#d1215e') },
