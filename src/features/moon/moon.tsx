@@ -37,7 +37,7 @@ function MoonView({ entity }: { entity: Entity }) {
       physics,
       body,
       [dir.x * impulse, dir.y * impulse, dir.z * impulse],
-      [point.x, point.y, point.z],
+      [point.x, point.y, point.z]
     );
   };
 

@@ -25,7 +25,15 @@ export const actions = createActions((world) => ({
       objectLayer: objectLayers.fixed,
       restitution: 0.8,
     });
-    return world.spawn(IsPlanet, AngularVelocity, RotationConfig, Grass, Wind, GrassRimLighting, PhysicsBody(body));
+    return world.spawn(
+      IsPlanet,
+      AngularVelocity,
+      RotationConfig,
+      Grass,
+      Wind,
+      GrassRimLighting,
+      PhysicsBody(body)
+    );
   },
 
   spawnMoon: () => {

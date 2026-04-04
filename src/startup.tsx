@@ -16,12 +16,12 @@ export function Startup() {
     planet.set(Wind, { speed: 0.1 });
     planet.set(GrassRimLighting, {
       orbitSpeed: 0.2,
-      pulseSpeed: 0.5,
+      pulseSpeed: 0.4,
       pulseMin: 0.1,
       pulseMax: 1,
       powerPulseSpeed: 0.1,
       powerMin: 1.0,
-      powerMax: 15.0,
+      powerMax: 7.0,
     });
 
     const moon = spawnMoon();

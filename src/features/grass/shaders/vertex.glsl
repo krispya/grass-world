@@ -37,12 +37,18 @@ void main() {
   float rotWindX = dot(apparentWind, localX);
   float rotWindY = dot(apparentWind, localY);
 
-  // Attenuate noise sway when rotational wind dominates
-  float rotMag = length(vec2(rotWindX, rotWindY));
-  float swayAtten = 1.0 / (1.0 + rotMag * uRotSwayAtten);
+  vec2 ambientWind = vec2(swingX, swingY) * uSway;
+  vec2 rotationalWind = vec2(rotWindX, rotWindY) * heightFactor * uRotWindStrength;
 
-  float dx = swingX * uSway * swayAtten + rotWindX * heightFactor * uRotWindStrength;
-  float dy = swingY * uSway * swayAtten + rotWindY * heightFactor * uRotWindStrength;
+  // Fade out ambient sway entirely as apparent wind ramps up so max velocity
+  // leaves only the velocity-driven motion.
+  float rotationalMagnitude = length(rotationalWind);
+  float rotationalInfluence = clamp(rotationalMagnitude * uRotSwayAtten * 2.0, 0.0, 1.0);
+  vec2 mergedAmbientWind = ambientWind * (1.0 - rotationalInfluence);
+
+  vec2 totalWind = mergedAmbientWind + rotationalWind;
+  float dx = totalWind.x;
+  float dy = totalWind.y;
   pos.x += dx;
   pos.y += dy;
 
