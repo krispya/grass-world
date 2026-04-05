@@ -7,7 +7,7 @@ const _color = new Color();
 export function updateStars(world: World) {
   const { elapsed } = world.get(Time)!;
 
-  world.query(Stars, StarsMaterialRef).updateEach(([stars, mat]) => {
+  world.query(Stars, StarsMaterialRef).readEach(([stars, mat]) => {
     if (!mat) return;
     mat.uniforms.uTime.value = elapsed * stars.speed;
     mat.uniforms.uFade.value = stars.fade ? 1.0 : 0.0;

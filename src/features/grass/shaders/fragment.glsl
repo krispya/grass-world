@@ -4,7 +4,6 @@ uniform vec3 uColorB;
 uniform vec3 uEmissive;
 uniform float uFogNear;
 uniform float uFogFar;
-uniform samplerCube uEnvMap;
 uniform float uEnvMapIntensity;
 uniform vec3 uRimColor;
 uniform float uRimIntensity;
@@ -16,12 +15,14 @@ varying vec4 vWorldPos;
 varying vec3 vWorldNormal;
 varying vec3 vWorldPosition;
 
+#include "../../../shaders/analytic-hemisphere.glsl"
+
 void main() {
   float depthFactor = smoothstep(0.2, 1.0, 1.0 - vHeight);
   vec3 baseColor = mix(uColorA, uColorB, depthFactor);
   vec3 color = baseColor + uEmissive * uEmissiveIntensity;
 
-  vec3 envColor = textureCube(uEnvMap, vWorldNormal).rgb;
+  vec3 envColor = getAnalyticEnvironmentColor(vWorldNormal);
   float envFade = smoothstep(0.4, 0.0, vHeight);
   color = mix(color, envColor, uEnvMapIntensity * envFade);
 

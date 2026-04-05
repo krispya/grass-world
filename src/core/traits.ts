@@ -1,6 +1,6 @@
 import { trait } from 'koota';
 import type { World as CrashcatWorld, RigidBody } from 'crashcat';
-import { type InstancedMesh, type Object3D, type ShaderMaterial } from 'three';
+import { type IUniform, type InstancedMesh, type Object3D, type ShaderMaterial } from 'three';
 
 // ── Singletons (passed to createWorld) ──────────────────────────────────────
 
@@ -46,6 +46,7 @@ export const Wind = trait({ speed: 0.5, rotStrength: 0.1, rotSwayAtten: 1.5 });
 
 export const Ref = trait(() => null! as Object3D);
 export const MaterialRef = trait(() => null! as ShaderMaterial);
+export const AnalyticHemisphereUniformsRef = trait(() => null! as Record<string, IUniform>);
 
 // ── Moon ─────────────────────────────────────────────────────────────────────
 
@@ -54,7 +55,18 @@ export const Orbit = trait({ radius: 9, speed: 0.3 });
 
 // ── Space ────────────────────────────────────────────────────────────────────
 
-export const Space = trait({ colorSpeed: 0.1, alphaMin: 0.0, alphaMax: 0.8 });
+export const Space = trait({
+  colorBase: '#312a49',
+  colorA: 'hotpink',
+  colorB: '#447',
+  originX: 100,
+  originY: 100,
+  originZ: 100,
+  far: 300,
+  colorSpeed: 0.3,
+  alphaMin: 0.2,
+  alphaMax: 0.8,
+});
 
 // ── Stars ────────────────────────────────────────────────────────────────────
 

@@ -3,17 +3,19 @@ import { useActions, useWorld } from 'koota/react';
 import { actions } from './core/actions';
 import { Grass, GrassRimLighting, Physics, Stars, Wind } from './core/traits';
 import { createPhysicsWorld } from './core/physics';
+import { useMobile } from './hooks/use-mobile';
 
 export function Startup() {
   const world = useWorld();
   const { spawnPlanet, spawnMoon, spawnSpace } = useActions(actions);
+  const isMobile = useMobile();
 
   useEffect(() => {
     const physicsWorld = createPhysicsWorld();
     world.add(Physics(physicsWorld));
 
     const planet = spawnPlanet();
-    planet.set(Grass, { joints: 3 });
+    planet.set(Grass, { joints: 3, count: isMobile ? 40000 : 60000 });
     planet.set(Wind, { speed: 0.1 });
     planet.set(GrassRimLighting, {
       orbitSpeed: 0.2,
@@ -26,7 +28,20 @@ export function Startup() {
     });
 
     const moon = spawnMoon();
-    const space = spawnSpace({ colorSpeed: 0.3, alphaMin: 0.2, alphaMax: 0.8 });
+
+    const space = spawnSpace({
+      colorBase: '#312a49',
+      colorA: 'hotpink',
+      colorB: '#447',
+      originX: 100,
+      originY: 35,
+      originZ: 100,
+      far: 300,
+      colorSpeed: 1,
+      alphaMin: 0.2,
+      alphaMax: 0.8,
+    });
+
     space.set(Stars, {
       count: 6000,
       radius: 150,
@@ -48,7 +63,7 @@ export function Startup() {
       space.destroy();
       world.remove(Physics);
     };
-  }, [world, spawnPlanet, spawnMoon, spawnSpace]);
+  }, [isMobile, world, spawnPlanet, spawnMoon, spawnSpace]);
 
   return null;
 }

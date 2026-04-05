@@ -1,7 +1,13 @@
 import { Sphere } from '@react-three/drei';
 import { useQueryFirst, useTrait } from 'koota/react';
-import { useRef } from 'react';
-import { Grass, IsPlanet, Ref } from '../../core/traits';
+import { useEffect, useRef } from 'react';
+import { AnalyticHemisphereUniformsRef, Grass, IsPlanet, Ref, Space } from '../../core/traits';
+import {
+  type AnalyticEnvShader,
+  createAnalyticHemisphereUniforms,
+  syncAnalyticHemisphereUniforms,
+  extendStandardMaterialWithAnalyticEnv,
+} from '../space/hemisphere/analytic-env';
 import { GrassView } from '../grass/grass';
 
 import type { Entity } from 'koota';
@@ -18,6 +24,24 @@ export function PlanetRenderer() {
 function PlanetView({ entity }: { entity: Entity }) {
   const sphereRef = useRef<Mesh>(null);
   const grass = useTrait(entity, Grass);
+  const spaceEntity = useQueryFirst(Space);
+  const space = spaceEntity?.get(Space);
+  const analyticEnvUniforms = useRef({
+    ...createAnalyticHemisphereUniforms(),
+    uAnalyticEnvIntensity: { value: 2.0 },
+  }).current;
+
+  useEffect(() => {
+    if (!entity.isAlive()) return;
+    entity.add(AnalyticHemisphereUniformsRef(analyticEnvUniforms));
+    return () => {
+      if (entity.isAlive()) entity.remove(AnalyticHemisphereUniformsRef);
+    };
+  }, [analyticEnvUniforms, entity]);
+
+  useEffect(() => {
+    if (space) syncAnalyticHemisphereUniforms(analyticEnvUniforms, space);
+  }, [analyticEnvUniforms, space]);
 
   const handleInit = (group: Group | null) => {
     if (!group || !entity.isAlive()) return;
@@ -25,10 +49,15 @@ function PlanetView({ entity }: { entity: Entity }) {
     return () => entity.remove(Ref);
   };
 
+  const handleMaterialCompile = (shader: AnalyticEnvShader) => {
+    if (analyticEnvUniforms) extendStandardMaterialWithAnalyticEnv(shader, analyticEnvUniforms);
+  };
+
   return (
     <group ref={handleInit}>
       <Sphere ref={sphereRef} args={[RADIUS, 32, 32]} receiveShadow castShadow>
         <meshStandardMaterial
+          onBeforeCompile={handleMaterialCompile}
           color="#32194c"
           emissive="#b3292e"
           emissiveIntensity={0.3}

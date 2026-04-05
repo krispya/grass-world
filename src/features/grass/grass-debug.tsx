@@ -55,8 +55,8 @@ function GrassDebugStats({ culling }: { culling: TraitRecord<typeof GrassCulling
   return (
     <div className="debug-panel">
       <div>
-        Grass {visible.toLocaleString()} / {culling.totalCount.toLocaleString()} visible (
-        {visiblePct}%)
+        Grass {visible.toLocaleString()} / {culling.totalCount.toLocaleString()} visible ({visiblePct}
+        %)
       </div>
       <div>Threshold {culling.visibilityThreshold.toFixed(2)}</div>
       <div>Update every {culling.updateInterval} frames</div>

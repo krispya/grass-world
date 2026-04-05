@@ -29,7 +29,9 @@ body {
   border: 1px solid rgba(201, 221, 172, 0.4);
   background: rgba(28, 26, 61, 0.8);
   color: #c9ddac;
-  font: 600 0.75rem/1.2 'Space Mono', monospace;
+  font:
+    600 0.75rem/1.2 'Space Mono',
+    monospace;
   letter-spacing: 0.04em;
   padding: 0.6rem 0.8rem;
   cursor: pointer;
@@ -40,6 +42,8 @@ body {
   border: 1px solid rgba(201, 221, 172, 0.3);
   background: rgba(28, 26, 61, 0.88);
   color: #c9ddac;
-  font: 0.7rem/1.45 'Space Mono', monospace;
+  font:
+    0.7rem/1.45 'Space Mono',
+    monospace;
   padding: 0.7rem 0.8rem;
 }

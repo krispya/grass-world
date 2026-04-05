@@ -2,8 +2,8 @@ import { Entity } from 'koota';
 import { useTrait } from 'koota/react';
 import * as THREE from 'three';
 import { ShaderMaterial } from 'three';
-import { Stars, StarsMaterialRef } from '../../core/traits';
-import { buildStarBuffers } from '../../util/stars';
+import { Stars, StarsMaterialRef } from '../../../core/traits';
+import { buildStarBuffers } from '../../../util/stars';
 import starsFragmentShader from './shaders/stars-fragment.glsl';
 import starsVertexShader from './shaders/stars-vertex.glsl';
 

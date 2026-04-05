@@ -1,0 +1,1 @@
+export { StarsView } from './stars';

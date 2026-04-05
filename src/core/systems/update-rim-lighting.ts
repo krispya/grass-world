@@ -4,7 +4,7 @@ import { Grass, MaterialRef, GrassRimLighting, Time } from '../traits';
 export function updateGrassRimLighting(world: World) {
   const { elapsed } = world.get(Time)!;
 
-  world.query(GrassRimLighting, MaterialRef, Grass).updateEach(([rim, mat]) => {
+  world.query(GrassRimLighting, MaterialRef, Grass).readEach(([rim, mat]) => {
     if (!mat?.uniforms.uRimDirection) return;
 
     const dir = mat.uniforms.uRimDirection.value;

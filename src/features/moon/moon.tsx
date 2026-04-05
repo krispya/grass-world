@@ -1,9 +1,16 @@
+import { type ThreeEvent } from '@react-three/fiber';
 import { Center, Text3D } from '@react-three/drei';
 import { useQueryFirst, useWorld } from 'koota/react';
 import { rigidBody } from 'crashcat';
-import { IsMoon, Physics, PhysicsBody, Ref } from '../../core/traits';
+import { useEffect, useRef } from 'react';
+import { AnalyticHemisphereUniformsRef, IsMoon, Physics, PhysicsBody, Ref, Space } from '../../core/traits';
+import {
+  type AnalyticEnvShader,
+  createAnalyticHemisphereUniforms,
+  syncAnalyticHemisphereUniforms,
+  extendStandardMaterialWithAnalyticEnv,
+} from '../space/hemisphere/analytic-env';
 
-import type { ThreeEvent } from '@react-three/fiber';
 import type { Entity } from 'koota';
 import type { Group } from 'three';
 
@@ -17,6 +24,24 @@ export function MoonRenderer() {
 
 function MoonView({ entity }: { entity: Entity }) {
   const world = useWorld();
+  const spaceEntity = useQueryFirst(Space);
+  const space = spaceEntity?.get(Space);
+  const analyticEnvUniforms = useRef({
+    ...createAnalyticHemisphereUniforms(),
+    uAnalyticEnvIntensity: { value: 2.5 },
+  }).current;
+
+  useEffect(() => {
+    if (!entity.isAlive()) return;
+    entity.add(AnalyticHemisphereUniformsRef(analyticEnvUniforms));
+    return () => {
+      if (entity.isAlive()) entity.remove(AnalyticHemisphereUniformsRef);
+    };
+  }, [analyticEnvUniforms, entity]);
+
+  useEffect(() => {
+    if (space) syncAnalyticHemisphereUniforms(analyticEnvUniforms, space);
+  }, [analyticEnvUniforms, space]);
 
   const handleInit = (group: Group | null) => {
     if (!group || !entity.isAlive()) return;
@@ -41,6 +66,10 @@ function MoonView({ entity }: { entity: Entity }) {
     );
   };
 
+  const handleMaterialCompile = (shader: AnalyticEnvShader) => {
+    if (analyticEnvUniforms) extendStandardMaterialWithAnalyticEnv(shader, analyticEnvUniforms);
+  };
+
   return (
     <group ref={handleInit} onPointerDown={handlePointerDown}>
       <Center>
@@ -55,6 +84,7 @@ function MoonView({ entity }: { entity: Entity }) {
         >
           CCNYC
           <meshStandardMaterial
+            onBeforeCompile={handleMaterialCompile}
             color="#21c2d1"
             emissive="#c0b0d8"
             emissiveIntensity={0.2}

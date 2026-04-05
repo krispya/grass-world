@@ -46,3 +46,46 @@ float snoise(vec3 v) {
   m = m * m;
   return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
 }
+
+// Value noise + FBM for sky effects
+float hash31(vec3 p) {
+  p = fract(p * vec3(0.1031, 0.1030, 0.0973));
+  p += dot(p, p.yxz + 33.33);
+  return fract((p.x + p.y) * p.z);
+}
+
+float vnoise(vec3 x) {
+  vec3 i = floor(x);
+  vec3 f = fract(x);
+  f = f * f * (3.0 - 2.0 * f);
+
+  return mix(
+    mix(mix(hash31(i), hash31(i + vec3(1, 0, 0)), f.x),
+        mix(hash31(i + vec3(0, 1, 0)), hash31(i + vec3(1, 1, 0)), f.x), f.y),
+    mix(mix(hash31(i + vec3(0, 0, 1)), hash31(i + vec3(1, 0, 1)), f.x),
+        mix(hash31(i + vec3(0, 1, 1)), hash31(i + vec3(1, 1, 1)), f.x), f.y),
+    f.z
+  );
+}
+
+float fbm5(vec3 p) {
+  float v = 0.0, a = 0.5;
+  vec3 shift = vec3(100.0);
+  for (int i = 0; i < 5; i++) {
+    v += a * vnoise(p);
+    p = p * 2.0 + shift;
+    a *= 0.5;
+  }
+  return v;
+}
+
+float fbm3(vec3 p) {
+  float v = 0.0, a = 0.5;
+  vec3 shift = vec3(100.0);
+  for (int i = 0; i < 3; i++) {
+    v += a * vnoise(p);
+    p = p * 2.0 + shift;
+    a *= 0.5;
+  }
+  return v;
+}
