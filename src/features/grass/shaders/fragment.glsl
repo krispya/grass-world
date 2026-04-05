@@ -11,7 +11,6 @@ uniform float uRimIntensity;
 uniform float uRimPower;
 uniform vec3 uRimDirection;
 
-varying vec2 vUv;
 varying float vHeight;
 varying vec4 vWorldPos;
 varying vec3 vWorldNormal;
