@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
-// import { Stats } from '@react-three/drei';
+import { GrassDebug } from './features/grass/grass-debug';
 import { PlanetRenderer } from './features/planet/planet';
 import { MoonRenderer } from './features/moon/moon';
 import { SpaceRenderer } from './features/space/space';
@@ -17,8 +17,9 @@ export function App() {
     <>
       <Poster />
       <TouchControls />
+      <GrassDebug />
+
       <Canvas shadows camera={{ position: [0, 12, 0] }}>
-        {/* <Stats /> */}
         <Suspense fallback={null}>
           <PlanetRenderer />
           <MoonRenderer />

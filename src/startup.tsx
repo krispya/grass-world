@@ -21,7 +21,7 @@ export function Startup() {
       pulseMax: 1,
       powerPulseSpeed: 0.1,
       powerMin: 1.0,
-      powerMax: 7.0,
+      powerMax: 6.0,
     });
 
     const moon = spawnMoon();

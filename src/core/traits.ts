@@ -1,6 +1,6 @@
 import { trait } from 'koota';
 import type { World as CrashcatWorld, RigidBody } from 'crashcat';
-import { type Object3D, type ShaderMaterial } from 'three';
+import { type InstancedMesh, type Object3D, type ShaderMaterial } from 'three';
 
 // ── Singletons (passed to createWorld) ──────────────────────────────────────
 
@@ -18,7 +18,19 @@ export const PhysicsBody = trait(() => null! as RigidBody);
 export const IsPlanet = trait();
 export const AngularVelocity = trait({ x: 0, y: 0 });
 export const RotationConfig = trait({ acceleration: 20, friction: 5, maxSpeed: 5 });
+
 export const Grass = trait({ bW: 0.065, bH: 0.5, joints: 5, count: 60000 });
+
+export const GrassCulling = trait({
+  mesh: () => null! as InstancedMesh,
+  totalCount: 0,
+  normals: () => new Float32Array(),
+  matrices: () => new Float32Array(),
+  visibilityThreshold: 0,
+  updateInterval: 0,
+  frame: 0,
+});
+
 export const GrassRimLighting = trait({
   pulseSpeed: 0.3,
   pulseMin: 0.2,
