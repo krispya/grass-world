@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useActions, useWorld } from 'koota/react';
 import { actions } from './core/actions';
-import { GrassRimLighting, Physics, Stars, Wind } from './core/traits';
+import { Grass, GrassRimLighting, Physics, Stars, Wind } from './core/traits';
 import { createPhysicsWorld } from './core/physics';
 
 export function Startup() {
@@ -13,6 +13,7 @@ export function Startup() {
     world.add(Physics(physicsWorld));
 
     const planet = spawnPlanet();
+    planet.set(Grass, { joints: 3 });
     planet.set(Wind, { speed: 0.1 });
     planet.set(GrassRimLighting, {
       orbitSpeed: 0.2,
