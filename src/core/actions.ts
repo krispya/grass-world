@@ -5,6 +5,7 @@ import {
   Grass,
   IsMoon,
   IsPlanet,
+  Nebula,
   Orbit,
   Physics,
   PhysicsBody,
@@ -61,6 +62,6 @@ export const actions = createActions((world) => ({
   },
 
   spawnSpace: (config?: Partial<TraitRecord<typeof Space>>) => {
-    return world.spawn(Space(config), Stars);
+    return world.spawn(Space(config), Nebula, Stars);
   },
 }));

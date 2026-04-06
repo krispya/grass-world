@@ -68,6 +68,15 @@ export const Space = trait({
   alphaMax: 0.8,
 });
 
+export const Nebula = trait({
+  enabled: true,
+  opacity: 0.28,
+  scale: 99.5,
+  pulseMin: 0.75,
+  pulseMax: 1.0,
+  pulseSpeed: 0.07,
+});
+
 // ── Stars ────────────────────────────────────────────────────────────────────
 
 export const Stars = trait({

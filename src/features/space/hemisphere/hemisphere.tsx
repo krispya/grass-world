@@ -2,7 +2,7 @@ import type { Entity } from 'koota';
 import { useMemo } from 'react';
 import type { ShaderMaterial } from 'three';
 import * as THREE from 'three';
-import { AnalyticHemisphereUniformsRef, Space } from '../../../core/traits';
+import { AnalyticHemisphereUniformsRef, Nebula, Space } from '../../../core/traits';
 import {
   createAnalyticHemisphereUniforms,
   syncAnalyticHemisphereUniforms,
@@ -12,9 +12,24 @@ import vertexShader from './shaders/vertex.glsl';
 
 export function HemisphereView({ entity }: { entity: Entity }) {
   const uniforms = useMemo(() => {
-    const uniforms = createAnalyticHemisphereUniforms();
+    const uniforms = {
+      ...createAnalyticHemisphereUniforms(),
+      uNebulaEnabled: { value: 1 },
+      uNebulaOpacity: { value: 0.28 },
+      uNebulaPulseMin: { value: 0.75 },
+      uNebulaPulseMax: { value: 1.0 },
+      uNebulaPulseSpeed: { value: 0.07 },
+    };
     const space = entity.get(Space);
+    const nebula = entity.get(Nebula);
     if (space) syncAnalyticHemisphereUniforms(uniforms, space);
+    if (nebula) {
+      uniforms.uNebulaEnabled.value = nebula.enabled ? 1 : 0;
+      uniforms.uNebulaOpacity.value = nebula.opacity;
+      uniforms.uNebulaPulseMin.value = nebula.pulseMin;
+      uniforms.uNebulaPulseMax.value = nebula.pulseMax;
+      uniforms.uNebulaPulseSpeed.value = nebula.pulseSpeed;
+    }
 
     return uniforms;
   }, [entity]);

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useActions, useWorld } from 'koota/react';
 import { actions } from './core/actions';
-import { Grass, GrassRimLighting, Physics, Stars, Wind } from './core/traits';
+import { Grass, GrassRimLighting, Nebula, Physics, Stars, Wind } from './core/traits';
 import { createPhysicsWorld } from './core/physics';
 import { useMobile } from './hooks/use-mobile';
 
@@ -37,7 +37,7 @@ export function Startup() {
       originY: 35,
       originZ: 100,
       far: 300,
-      colorSpeed: 1,
+      colorSpeed: 0.1,
       alphaMin: 0.2,
       alphaMax: 0.8,
     });
@@ -55,6 +55,15 @@ export function Startup() {
       tint: '#d1215e',
       tintMin: 0.65,
       tintMax: 0.9,
+    });
+
+    space.set(Nebula, {
+      enabled: true,
+      opacity: 0.28,
+      scale: 99.5,
+      pulseMin: 0.75,
+      pulseMax: 1.0,
+      pulseSpeed: 0.07,
     });
 
     return () => {
