@@ -9,11 +9,11 @@ import fragmentShader from './shaders/fragment.glsl';
 import vertexShader from './shaders/vertex.glsl';
 
 const nebulaVariants = [
-  '/assets/nebula-baked-1.png',
-  '/assets/nebula-baked-2.png',
-  '/assets/nebula-baked-3.png',
-  '/assets/nebula-baked-4.png',
-  '/assets/nebula-baked-5.png',
+  `${import.meta.env.BASE_URL}assets/nebula-baked-1.png`,
+  `${import.meta.env.BASE_URL}assets/nebula-baked-2.png`,
+  `${import.meta.env.BASE_URL}assets/nebula-baked-3.png`,
+  `${import.meta.env.BASE_URL}assets/nebula-baked-4.png`,
+  `${import.meta.env.BASE_URL}assets/nebula-baked-5.png`,
 ];
 
 export function HemisphereView({ entity }: { entity: Entity }) {
