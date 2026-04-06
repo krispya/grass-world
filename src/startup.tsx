@@ -16,14 +16,14 @@ export function Startup() {
 
     const planet = spawnPlanet();
     planet.set(Grass, { joints: 3, count: isMobile ? 40000 : 60000 });
-    planet.set(Wind, { speed: 0.1 });
+    planet.set(Wind, { speed: 0.1, rotStrength: 0.2 });
     planet.set(GrassRimLighting, {
       orbitSpeed: 0.2,
-      pulseSpeed: 0.4,
+      pulseSpeed: 0.5,
       pulseMin: 0.1,
-      pulseMax: 1,
-      powerPulseSpeed: 0.1,
-      powerMin: 1.0,
+      pulseMax: 0.9,
+      powerPulseSpeed: 0.45,
+      powerMin: 3.0,
       powerMax: 6.0,
     });
 

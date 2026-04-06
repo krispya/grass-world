@@ -11,11 +11,14 @@ varying vec3 vWorldPosition;
 
 #include "../../../shaders/noise.glsl"
 
+const float MAX_BEND_RATIO = 0.94;
+
 void main() {
   vec3 pos = position;
   vec3 base = vec3(pos.x, pos.y, 0.0);
   vec4 baseGP = instanceMatrix * vec4(base, 1.0);
-  float heightFactor = pos.z * pos.z;
+  float originalHeight = pos.z;
+  float heightFactor = originalHeight * originalHeight;
 
   // Ambient noise-based sway
   float t = uTime * uWindSpeed;
@@ -46,6 +49,12 @@ void main() {
   vec2 mergedAmbientWind = ambientWind * (1.0 - rotationalInfluence);
 
   vec2 totalWind = mergedAmbientWind + rotationalWind;
+  float lateralWind = length(totalWind);
+  float maxLateralWind = originalHeight * MAX_BEND_RATIO;
+  if (lateralWind > maxLateralWind) {
+    totalWind *= maxLateralWind / lateralWind;
+  }
+
   float dx = totalWind.x;
   float dy = totalWind.y;
   pos.x += dx;
@@ -55,7 +64,7 @@ void main() {
   vWorldNormal = normalize(worldBase);
 
   // Conserve blade length: lateral displacement pulls the tip toward the surface
-  pos.z = sqrt(max(pos.z * pos.z - dx * dx - dy * dy, 0.0));
+  pos.z = sqrt(max(originalHeight * originalHeight - dx * dx - dy * dy, 0.0));
   vec4 worldPos = worldInstance * vec4(pos, 1.0);
   vWorldPosition = worldPos.xyz;
   vWorldPos = viewMatrix * worldPos;
