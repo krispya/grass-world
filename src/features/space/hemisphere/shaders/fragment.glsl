@@ -1,12 +1,13 @@
 varying vec3 vWorldPos;
 uniform float uTime;
 uniform float uNebulaEnabled;
+uniform sampler2D uNebulaMap;
 uniform float uNebulaOpacity;
+uniform float uNebulaDriftSpeed;
 uniform float uNebulaPulseMin;
 uniform float uNebulaPulseMax;
 uniform float uNebulaPulseSpeed;
 
-#include "../../../../shaders/noise.glsl"
 #include "../../../../shaders/analytic-hemisphere.glsl"
 #include "../../nebula/shaders/nebula.glsl"
 
@@ -20,6 +21,7 @@ void main() {
       dir,
       uTime,
       uNebulaOpacity,
+      uNebulaDriftSpeed,
       uNebulaPulseMin,
       uNebulaPulseMax,
       uNebulaPulseSpeed

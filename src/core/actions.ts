@@ -61,7 +61,7 @@ export const actions = createActions((world) => ({
     return world.spawn(IsMoon, Orbit, PhysicsBody(body));
   },
 
-  spawnSpace: (config?: Partial<TraitRecord<typeof Space>>) => {
-    return world.spawn(Space(config), Nebula, Stars);
+  spawnSpace: () => {
+    return world.spawn(Space, Nebula, Stars);
   },
 }));

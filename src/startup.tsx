@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useActions, useWorld } from 'koota/react';
 import { actions } from './core/actions';
-import { Grass, GrassRimLighting, Nebula, Physics, Stars, Wind } from './core/traits';
+import { Grass, GrassRimLighting, Nebula, Physics, Space, Stars, Wind } from './core/traits';
 import { createPhysicsWorld } from './core/physics';
 import { useMobile } from './hooks/use-mobile';
 
@@ -29,7 +29,8 @@ export function Startup() {
 
     const moon = spawnMoon();
 
-    const space = spawnSpace({
+    const space = spawnSpace();
+    space.set(Space, {
       colorBase: '#312a49',
       colorA: 'hotpink',
       colorB: '#447',
@@ -64,6 +65,7 @@ export function Startup() {
       pulseMin: 0.75,
       pulseMax: 1.0,
       pulseSpeed: 0.07,
+      driftSpeed: 0.0015,
     });
 
     return () => {

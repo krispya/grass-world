@@ -23,6 +23,7 @@ export function updateSpaceUniforms(world: World) {
     if (nebulaUniforms.uNebulaEnabled) {
       nebulaUniforms.uNebulaEnabled.value = nebula?.enabled ? 1 : 0;
       nebulaUniforms.uNebulaOpacity!.value = nebula?.opacity ?? 0.28;
+      nebulaUniforms.uNebulaDriftSpeed!.value = nebula?.driftSpeed ?? 0.0015;
       nebulaUniforms.uNebulaPulseMin!.value = nebula?.pulseMin ?? 0.75;
       nebulaUniforms.uNebulaPulseMax!.value = nebula?.pulseMax ?? 1.0;
       nebulaUniforms.uNebulaPulseSpeed!.value = nebula?.pulseSpeed ?? 0.07;

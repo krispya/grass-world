@@ -75,6 +75,7 @@ export const Nebula = trait({
   pulseMin: 0.75,
   pulseMax: 1.0,
   pulseSpeed: 0.07,
+  driftSpeed: 0.0015,
 });
 
 // ── Stars ────────────────────────────────────────────────────────────────────
