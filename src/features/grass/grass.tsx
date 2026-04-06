@@ -4,7 +4,13 @@ import type { RefObject } from 'react';
 import { useEffect, useMemo, useRef } from 'react';
 import type { InstancedMesh, Mesh, ShaderMaterial } from 'three';
 import * as THREE from 'three';
-import { AnalyticHemisphereUniformsRef, Grass, GrassCulling, MaterialRef, Space } from '../../core/traits';
+import {
+  AnalyticHemisphereUniformsRef,
+  Grass,
+  GrassCulling,
+  MaterialRef,
+  Space,
+} from '../../core/traits';
 import {
   createAnalyticHemisphereUniforms,
   syncAnalyticHemisphereUniforms,

@@ -3,7 +3,14 @@ import { Center, Text3D } from '@react-three/drei';
 import { useQueryFirst, useWorld } from 'koota/react';
 import { rigidBody } from 'crashcat';
 import { useEffect, useRef } from 'react';
-import { AnalyticHemisphereUniformsRef, IsMoon, Physics, PhysicsBody, Ref, Space } from '../../core/traits';
+import {
+  AnalyticHemisphereUniformsRef,
+  IsMoon,
+  Physics,
+  PhysicsBody,
+  Ref,
+  Space,
+} from '../../core/traits';
 import {
   type AnalyticEnvShader,
   createAnalyticHemisphereUniforms,

@@ -1,21 +1,21 @@
-import { createActions, type TraitRecord } from 'koota';
-import { rigidBody, box, sphere, MotionType } from 'crashcat';
+import { box, MotionType, rigidBody, sphere } from 'crashcat';
+import { createActions } from 'koota';
+import { objectLayers } from './physics';
 import {
   AngularVelocity,
   Grass,
+  GrassRimLighting,
   IsMoon,
   IsPlanet,
   Nebula,
   Orbit,
   Physics,
   PhysicsBody,
-  GrassRimLighting,
   RotationConfig,
   Space,
   Stars,
   Wind,
 } from './traits';
-import { objectLayers } from './physics';
 
 export const actions = createActions((world) => ({
   spawnPlanet: () => {
