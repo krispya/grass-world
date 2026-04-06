@@ -39,7 +39,7 @@ export function Startup() {
       originZ: 100,
       far: 300,
       colorSpeed: 0.1,
-      alphaMin: 0.2,
+      alphaMin: 0.4,
       alphaMax: 0.8,
     });
 
